@@ -38,6 +38,27 @@ app.post('/api/users', async (req,res)=>{
 });
 
 
+
+app.post('/api/login', async (req, res) => {
+  const userid = (req.body.userid || '').trim();
+  const pw = (req.body.pw || '').trim();
+  if (!userid || !pw) {
+    return res.status(400).json({ error: 'userid and pw required' });
+  }
+  try {
+    const [rows] = await db.query('SELECT pw FROM users WHERE userid = ? LIMIT 1', [userid]);
+    if (rows.length === 0 || !rows[0].pw) {
+      return res.json({ ok: true, match: false });
+    }
+    const hashedPw = crypto.createHash('sha256').update(pw, 'utf8').digest('hex');
+    const match = rows[0].pw === hashedPw;
+    return res.json({ ok: true, match });
+  } catch (err) {
+    console.error('login error', err);
+    return res.status(500).json({ error: err.message });
+  }
+});
+
 // Temporary test endpoint: store users in an in-memory array for testing when DB is unavailable.
 const inMemoryUsers = [];
 app.post('/api/users-test', (req, res) => {
