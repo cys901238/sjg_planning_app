@@ -1,5 +1,3 @@
-package com.example.sjgplanning
-
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
@@ -36,7 +34,7 @@ class MainActivity : AppCompatActivity() {
             textStatus.text = "로그인 중..."
             thread {
                 try {
-                    val baseUrl = "http://172.17.36.15:3000"
+                    val baseUrl = getString(R.string.base_url)
                     val client = OkHttpClient()
                     val payload = JSONObject().apply {
                         put("userid", userid)

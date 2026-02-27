@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">SJG 생산계획</string>
+    <string name="base_url">http://172.17.36.15:3000</string>
+</resources>
