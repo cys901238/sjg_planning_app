@@ -1,6 +1,7 @@
 require('dotenv').config();
 const express = require('express');
 const bodyParser = require('body-parser');
+const crypto = require('crypto');
 const db = require('./db');
 const app = express();
 const port = process.env.PORT || 3000;
@@ -12,11 +13,24 @@ app.get('/api/ping', (req,res)=>{
 });
 
 app.post('/api/users', async (req,res)=>{
-  const name = req.body.name || req.body.userid || req.body.user || req.body.username;
-  if(!name) return res.status(400).json({error:'name (or userid) is required'});
+  const userid = (req.body.userid || req.body.name || req.body.user || req.body.username || '').trim();
+  const uname = (req.body.uname || '').trim();
+  const dept = (req.body.dept || '').trim();
+  const pw = (req.body.pw || req.body.password || '').trim();
+
+  if(!userid || !uname || !dept || !pw) {
+    return res.status(400).json({error:'userid, uname, dept, pw are required'});
+  }
+
+  const hashedPw = crypto.createHash('sha256').update(pw, 'utf8').digest('hex');
+  const delFlag = (req.body.del || 'N').trim().charAt(0) || 'N';
+
   try{
-    const [result]= await db.query('INSERT INTO users (userid) VALUES (?)', [name]);
-    return res.json({ok:true, id: result.insertId});
+    await db.query(
+      'INSERT INTO users (userid, uname, dept, pw, del) VALUES (?, ?, ?, ?, ?)',
+      [userid, uname, dept, hashedPw, delFlag]
+    );
+    return res.json({ok:true, userid});
   }catch(err){
     console.error('db insert error', err);
     return res.status(500).json({error:err.message});

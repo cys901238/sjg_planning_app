@@ -19,26 +19,38 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         val editUserid = findViewById<EditText>(R.id.editUserid)
+        val editUname = findViewById<EditText>(R.id.editUname)
+        val editDept = findViewById<EditText>(R.id.editDept)
+        val editPw = findViewById<EditText>(R.id.editPw)
         val btnSave = findViewById<Button>(R.id.btnSave)
         val btnClose = findViewById<Button>(R.id.btnClose)
+        val btnLogin = findViewById<Button>(R.id.btnLogin)
         val textStatus = findViewById<TextView>(R.id.textStatus)
 
         btnSave.setOnClickListener {
             val userid = editUserid.text.toString().trim()
-            if (userid.isEmpty()) {
-                Toast.makeText(this, "사용자 ID를 입력하세요", Toast.LENGTH_SHORT).show()
+            val uname = editUname.text.toString().trim()
+            val dept = editDept.text.toString().trim()
+            val pw = editPw.text.toString().trim()
+
+            if (userid.isEmpty() || uname.isEmpty() || dept.isEmpty() || pw.isEmpty()) {
+                Toast.makeText(this, "모든 필드를 입력하세요", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
+
             textStatus.text = "저장 중..."
-            // 네트워크 작업은 별도 스레드에서 수행
             thread {
                 try {
-                    // 기본: 에뮬레이터에서 개발시 10.0.2.2 사용
                     val baseUrl = "http://172.17.36.15:3000"
                     val client = OkHttpClient()
-                    val json = JSONObject().put("name", userid).toString()
-                    val body = json.toRequestBody("application/json; charset=utf-8".toMediaTypeOrNull())
-                    val req = Request.Builder().url(baseUrl + "/api/users").post(body).build()
+                    val payload = JSONObject().apply {
+                        put("userid", userid)
+                        put("uname", uname)
+                        put("dept", dept)
+                        put("pw", pw)
+                    }.toString()
+                    val body = payload.toRequestBody("application/json; charset=utf-8".toMediaTypeOrNull())
+                    val req = Request.Builder().url("$baseUrl/api/users").post(body).build()
                     val resp = client.newCall(req).execute()
                     val success = resp.isSuccessful
                     runOnUiThread {
@@ -60,8 +72,6 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        val btnLogin = findViewById<Button>(R.id.btnLogin)
-
         btnLogin.setOnClickListener {
             val userid = editUserid.text.toString().trim()
             if (userid.isEmpty()) {
@@ -73,7 +83,10 @@ class MainActivity : AppCompatActivity() {
                 try {
                     val baseUrl = "http://172.17.36.15:3000"
                     val client = OkHttpClient()
-                    val req = Request.Builder().url(baseUrl + "/api/users/exists?userid=" + java.net.URLEncoder.encode(userid, "utf-8")).get().build()
+                    val req = Request.Builder()
+                        .url(baseUrl + "/api/users/exists?userid=" + java.net.URLEncoder.encode(userid, "utf-8"))
+                        .get()
+                        .build()
                     val resp = client.newCall(req).execute()
                     val body = resp.body?.string() ?: ""
                     val exists = try {
@@ -83,7 +96,6 @@ class MainActivity : AppCompatActivity() {
                     }
                     runOnUiThread {
                         if (exists) {
-                            // go to Welcome
                             val intent = android.content.Intent(this, WelcomeActivity::class.java)
                             intent.putExtra("name", userid)
                             startActivity(intent)
