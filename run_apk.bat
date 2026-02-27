@@ -7,7 +7,7 @@ set "ADB=%SDK_ROOT%\platform-tools\adb.exe"
 set "EMU=%SDK_ROOT%\emulator\emulator.exe"
 set "AVD_NAME=test"
 REM APK 경로를 인자로 받을 수도 있고, 없으면 아래 기본값 사용
-set "DEFAULT_APK=D:\somi_work\sap_guild\app-debug-ci.apk"
+set "DEFAULT_APK=D:\somi_work\sjg_planning_app\sjg_planning_app.apk"
 REM =================================================
 
 REM 1) APK 경로 결정 (bat 실행 시 첫번째 인자 있으면 그걸 사용)
@@ -97,9 +97,9 @@ if errorlevel 1 (
 
 REM 8) (선택) 앱 자동 실행 (패키지/액티비티 알고 있으면 사용)
 echo [7/8] Launching app (if package/activity known)...
-REM 예: "%ADB%" shell am start -n com.example.helloworld/.MainActivity
+REM 예: "%ADB%" shell am start -n com.example.sjgplanning/.MainActivity
 REM 또는 런처로 실행:
-REM "%ADB%" shell monkey -p com.example.helloworld -c android.intent.category.LAUNCHER 1
+REM "%ADB%" shell monkey -p com.example.sjgplanning -c android.intent.category.LAUNCHER 1
 
 echo [8/8] Done.
 echo Installed: %APK%

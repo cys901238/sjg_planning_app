@@ -5,7 +5,7 @@ const pool = mysql.createPool({
   port: process.env.DB_PORT || 3306,
   user: process.env.DB_USER || 'somi',
   password: process.env.DB_PASS || '',
-  database: process.env.DB_NAME || 'sap_guild',
+  database: process.env.DB_NAME || 'sjg_planning_app',
   waitForConnections: true,
   connectionLimit: 10,
   queueLimit: 0

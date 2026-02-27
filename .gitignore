@@ -13,3 +13,14 @@ bin/
 .idea/
 *.apk
 */build/
+
+# backend artifacts
+backend/.env
+backend/.env*
+backend/node_modules/
+backend/backend.log
+backend/backend.pid
+
+# build logs
+build.log
+build_debug.log

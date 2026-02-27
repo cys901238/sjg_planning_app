@@ -2,10 +2,10 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 
 android {
-    namespace "com.example.helloworld"
+    namespace "com.example.sjgplanning"
     compileSdkVersion 33
     defaultConfig {
-        applicationId "com.example.helloworld"
+        applicationId "com.example.sjgplanning"
         minSdkVersion 21
         targetSdkVersion 33
         versionCode 1

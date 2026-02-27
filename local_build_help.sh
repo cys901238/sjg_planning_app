@@ -1,9 +1,9 @@
 #!/bin/bash
-# local_build_help.sh - helper instructions to build sap_guild locally
+# local_build_help.sh - helper instructions to build sjg_planning_app locally
 
 set -euo pipefail
 cat <<'EOS'
-Local build helper for sap_guild Android project
+Local build helper for sjg_planning_app Android project
 
 1) Install JDK 11 and Android SDK if not installed.
    - On Ubuntu: sudo apt install openjdk-11-jdk

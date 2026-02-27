@@ -8,7 +8,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="SAP Guild - 사용자 등록"
+        android:text="SJG 생산계획 - 사용자 등록"
         android:textSize="18sp"
         android:layout_marginBottom="12dp" />
 
