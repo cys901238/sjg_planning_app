@@ -10,13 +10,7 @@
         android:layout_height="wrap_content"
         android:text="SJG 생산계획 - 사용자 등록"
         android:textSize="18sp"
-        android:layout_marginBottom="12dp" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="사용자ID"
-        android:layout_marginBottom="4dp" />
+        android:layout_marginBottom="16dp" />
 
     <EditText
         android:id="@+id/editUserid"
@@ -24,13 +18,7 @@
         android:layout_height="wrap_content"
         android:inputType="text"
         android:layout_marginBottom="12dp"
-        android:hint="userid" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="사용자명"
-        android:layout_marginBottom="4dp" />
+        android:hint="사용자ID (userid)" />
 
     <EditText
         android:id="@+id/editUname"
@@ -38,13 +26,7 @@
         android:layout_height="wrap_content"
         android:inputType="textPersonName"
         android:layout_marginBottom="12dp"
-        android:hint="uname" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="부서명"
-        android:layout_marginBottom="4dp" />
+        android:hint="사용자명 (uname)" />
 
     <EditText
         android:id="@+id/editDept"
@@ -52,13 +34,7 @@
         android:layout_height="wrap_content"
         android:inputType="text"
         android:layout_marginBottom="12dp"
-        android:hint="dept" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="패스워드"
-        android:layout_marginBottom="4dp" />
+        android:hint="부서명 (dept)" />
 
     <EditText
         android:id="@+id/editPw"
@@ -66,7 +42,7 @@
         android:layout_height="wrap_content"
         android:inputType="textPassword"
         android:layout_marginBottom="16dp"
-        android:hint="pw" />
+        android:hint="패스워드 (pw)" />
 
     <LinearLayout
         android:layout_width="match_parent"

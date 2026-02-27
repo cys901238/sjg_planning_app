@@ -56,6 +56,10 @@ class MainActivity : AppCompatActivity() {
                     runOnUiThread {
                         if (success) {
                             textStatus.text = "저장 완료"
+                            editUserid.setText("")
+                            editUname.setText("")
+                            editDept.setText("")
+                            editPw.setText("")
                             Toast.makeText(this, "저장 성공", Toast.LENGTH_SHORT).show()
                         } else {
                             textStatus.text = "저장 실패: ${resp.code}"
